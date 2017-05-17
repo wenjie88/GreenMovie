@@ -4,7 +4,11 @@ var webpack = require('webpack')
 var path = require('path')
 
 module.exports = {
-    entry: { main: './src/app.js', vendor: ['vue','vue-router'] },
+    entry: {
+        main: './src/app.js', 
+        vendor: ['vue', 'vue-router', 'vuex'],
+        majs: 'materialize-css/bin/materialize.js'
+    },
     output: {
         path: __dirname + '/dist',
         // filename: '[name]-[hash:5].js'
@@ -16,9 +20,9 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
-                options:{
-                    //extractCSS: true,
-                    loaders:{
+                options: {
+                    // extractCSS: true,
+                    loaders: {
                         // css:ExtractTextPlugin.extract({
                         //     use:'css-loader',
                         //     fallback:'vue-style-loader'
@@ -39,11 +43,13 @@ module.exports = {
             // },
             {
                 test: /\.css$/,
-                use: [
-                    'style-loader',
-                    {loader: 'css-loader',options: {importLoaders: 1 }},
-                    'postcss-loader',
-                ]
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        { loader: 'css-loader', options: { importLoaders: 1 } },
+                        'postcss-loader',
+                    ]
+                })
             },
             // {
             //     test: /.less$/,
@@ -74,6 +80,14 @@ module.exports = {
                         loader: 'image-webpack-loader',
                     },
                 ]
+            },
+            {
+                test: /\.(ttf|eot|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: "url-loader",
+                options: {
+                    limit: 1000,
+                    name: 'assets/[name]-[hash:5].[ext]'
+                }
             }
         ]
     },
@@ -87,17 +101,25 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             names: [    // 提取公共模块名称
                 'vendor',  // manifest 用于分离 webpack runtime 
+                'majs'
             ],
             filename: 'js/[name].js', // 公共模块文件名
             minChunks: Infinity     // Infinity 表示仅仅创建公共组件块，不会把任何modules打包进去。
         }),
-        new ExtractTextPlugin("style.css")
+        new ExtractTextPlugin('css/style.css')
         // new webpack.HotModuleReplacementPlugin()//热加载插件
     ],
     devtool: 'eval-source-map',//配置生成Source Maps，选择合适的选项
     devServer: {
         historyApiFallback: true,
-        noInfo: true
+        noInfo: true,
+        proxy: {
+            "/ajax": {
+                target: "http://baijia.baidu.com/",
+                changeOrigin: true,
+                // secure: false
+            }
+        }
     },
     resolve: {
         alias: {
@@ -121,6 +143,6 @@ if (process.env.NODE_ENV === 'production') {
         new webpack.LoaderOptionsPlugin({
             minimize: true,
         }),
-        
+
     ])
 }
