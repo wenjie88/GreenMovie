@@ -5,22 +5,21 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const Home = r => require.ensure([], () => r(require('../components/Home/Home.vue')), 'Home')
-const User = r => require.ensure([], () => r(require('../components/User.vue')), 'user')
-const Name = r => require.ensure([], () => r(require('../components/Name.vue')), 'Name')
+// const User = r => require.ensure([], () => r(require('../components/User.vue')), 'user')
+// const Name = r => require.ensure([], () => r(require('../components/Name.vue')), 'Name')
 const NoFound = r => require.ensure([], () => r(require('../components/NoFound.vue')), 'NoFound')
 
- var routes = [
+var routes = [
     {
-        path: '/User',
-        component: User,
+        path: '/',
+        component: Home,
         children: [
             {
-                path: 'UserName/:id',
-                component: Name
+                path: 'Home',
+                component: Home
             }
         ]
     },
-    { path: '/', component: Home },
     { path: '*', component: NoFound },
 ]
 

@@ -5,9 +5,10 @@ var path = require('path')
 
 module.exports = {
     entry: {
-        main: './src/app.js', 
-        vendor: ['vue', 'vue-router', 'vuex'],
-        majs: 'materialize-css/bin/materialize.js'
+        main: './src/app.js',
+        vendor: ['vue', 'vue-router', 'vuex', 'materialize-css/bin/materialize.js'],
+        // majs: 'materialize-css/bin/materialize.js'
+        // material: ['vue-material']
     },
     output: {
         path: __dirname + '/dist',
@@ -100,8 +101,8 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             names: [    // 提取公共模块名称
-                'vendor',  // manifest 用于分离 webpack runtime 
-                'majs'
+                'vendor', // manifest 用于分离 webpack runtime 
+                // 'material'
             ],
             filename: 'js/[name].js', // 公共模块文件名
             minChunks: Infinity     // Infinity 表示仅仅创建公共组件块，不会把任何modules打包进去。
