@@ -1,32 +1,79 @@
 <template>
-  <div>
-    
-  
-    <!--<div class="div">
-            <div class="child1">1</div>
-            <div class="child2">2</div>
-            <div class="child3">3</div>
-            <div class="child2">4</div>
-            <div class="child3">5</div>
-            <div class="child2">6</div>
-            <div class="child3">7</div>
-            <div class="child2">8</div>
-          </div>
-          <div class="hu"></div>-->
+  <!--<div class="gridlist-demo-container">
+                <div v-for="tile, index in list" :key="index">
+                    <mu-card>
+                      <mu-card-header title="Myron Avatar" subTitle="sub title">
+                      </mu-card-header>
+                      <mu-card-media title="Image Title" subTitle="Image Sub Title">
+                        <video :src="tile.video" controls='controls' type="video/mp4"></video>
+                      </mu-card-media>
+                      <mu-card-title title="Content Title" subTitle="Content Title" />
+                      <mu-card-text>
+                        散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。 调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。 似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光， 找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
+                      </mu-card-text>
+                      <mu-card-actions>
+                        <mu-flat-button label="Action 1" />
+                        <mu-flat-button label="Action 2" />
+                      </mu-card-actions>
+                    </mu-card>
+                  </div>
+              </div>-->
+  <div class="content">
+    <div class="card" v-for='item, index in list' :key>
+      <div class="title">item.title</div>
+      <div class="media">
+        <video v-bind:src="item.video" controls='contols'></video>
+      </div>
+    </div>
   </div>
 </template>
 
 
 <script>
 export default {
-  created() {
-
-
+  data() {
+    return {
+      list: [
+        { video: '/src/assets/video.mp4', title: 'hah', author: 'wen' },
+        { video: '/src/assets/video.mp4', title: 'hah', author: 'wen' },
+        { video: '/src/assets/video.mp4', title: 'hah', author: 'wen' }
+      ]
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang='less' scoped>
+.content {
+  display: flex;
+  flex-flow: wrap;
+  padding-right: 15%;
+  padding-left: 15%;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: hidden; // justify-content:space-between;
+  .card {
+    width: 500px;
+    overflow: hidden;
+    flex: 0 0 500px;
+    margin: 0 auto;
+    video {
+      width: 100%;
+    }
+  }
+
+  @media (max-width:790px) {
+    .card {
+      width: 400px;
+      flex: 0 0 400px;
+    }
+  }
+}
+
+
+
+
+
 .div {
   display: flex;
   background-color: yellow;
