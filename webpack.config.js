@@ -6,7 +6,7 @@ var path = require('path')
 module.exports = {
     entry: {
         main: './src/app.js',
-        vendor: ['vue', 'vue-router', 'vuex', 'muse-ui'],
+        vendor: ['vue', 'vue-router', 'vuex'],
         // majs: 'materialize-css/bin/materialize.js'
         // material: ['vue-material']
     },

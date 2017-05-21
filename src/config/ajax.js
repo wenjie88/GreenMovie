@@ -32,7 +32,7 @@ function a(type = 'GET', url = '', data = {}, async = true) {
             requestObj.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             requestObj.send();
         } else if (type === 'POST') {
-            requestObj.open(type, rul, async);
+            requestObj.open(type, url, async);
             requestObj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             requestObj.send(JSON.stringify(data))
         } else {
